@@ -21,7 +21,7 @@ class Account {
   void Set_Brocker(std::string);
   void Set_Account_Number(std::string);
   std::string Get_Brocker();
-  std::string Get_Account_Num();
+  std::string Get_Account_Number();
   std::size_t Get_File_Sum();
   int Get_Last_Date();
 };

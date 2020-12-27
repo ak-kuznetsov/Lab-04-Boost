@@ -15,10 +15,10 @@ Directory_Parser::Directory_Parser(std::string path_For_Parser) {
         if ((itEntry->path().stem().extension() == "")) {
           /* balance_00001234_20181001.txt */
           if (itEntry->path().extension() == ".txt") {
-                                  /*balance_00001234             , balance_\\d\\d\\d\\d\\d\\d\\d\\d*/
+            /*balance_00001234                                   , balance_\\d\\d\\d\\d\\d\\d\\d\\d*/
             if (std::regex_search(itEntry->path().stem().string(), Regular_Exp)) {
               Files.push_back(itEntry->path());
-              /* balance_00001234_20181001.txt */
+              /* /home/.../bcs/balance_00001234_20181001.txt */
               Accounts_Strings.insert(itEntry->path().stem().string().substr(8, 8));
             }
           }
@@ -33,10 +33,10 @@ Directory_Parser::Directory_Parser(std::string path_For_Parser) {
             if ((itEntry->path().stem().extension() == "")) {
               /* balance_00001234_20181001.txt */
               if (itEntry->path().extension() == ".txt") {
-                                      /*balance_00001234             , balance_\\d\\d\\d\\d\\d\\d\\d\\d*/
-                if (std::regex_search(itEntry->path().stem().string(), Regular_Exp)) {
+                /*balance_00001234                                   , balance_\\d\\d\\d\\d\\d\\d\\d\\d*/
+                if (std::regex_search(itEntry->path().stem().string(),Regular_Exp)) {
                   Files.push_back(itEntry->path());
-                  /* balance_00001234_20181001.txt */
+                  /* /home/.../bcs/balance_00001234_20181001.txt */
                   Accounts_Strings.insert(itEntry->path().stem().string().substr(8, 8));
                 }
               }
@@ -58,7 +58,8 @@ void Directory_Parser::Files_For_Acc() {
       if (file.filename().string().substr(8, 8) == acc) {
         tempAcc.Increment_Files_Sum();
         tempAcc.Add_File(file);
-        tempAcc.Set_Brocker(file.parent_path().filename().string());
+        tempAcc.Set_Brocker(
+            file.parent_path().filename().string()); /* ib, bcs, otkritie */
         /* balance_00001234_20181001.txt */
         if (std::stoi(file.filename().stem().string().substr(17, 8)) > lastDate) {
           lastDate = std::stoi(file.filename().stem().string().substr(17, 8));
@@ -77,11 +78,10 @@ std::string Directory_Parser::Print() {
        /* bcs                                               balance_00122223_20181010.txt */
   }
   for (auto acc : Accounts) {
-    ss << "broker:" << acc.Get_Brocker() << "\t" << "account:" << acc.Get_Account_Num() << "\t"
+    ss << "broker:" << acc.Get_Brocker() << "\t" << "account:" << acc.Get_Account_Number() << "\t"
        /*  broker:     ib                            account:     00100001              */
        << "files:" << acc.Get_File_Sum() << "\t" << "lastdate:" << acc.Get_Last_Date() << "\n";
        /*  files:     48                             lastdate:     20181018            */
   }
   return ss.str();
 }
-

@@ -14,7 +14,7 @@ void Account::Set_Account_Number(std::string Acc_Num) { Account_Number = Acc_Num
 
 std::string Account::Get_Brocker() { return Brocker; }
 
-std::string Account::Get_Account_Num() { return Account_Number; }
+std::string Account::Get_Account_Number() { return Account_Number; }
 
 std::size_t Account::Get_File_Sum() { return Files_Sum; }
 
